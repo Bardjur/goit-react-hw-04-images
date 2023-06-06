@@ -1,20 +1,54 @@
+import React from "react";
+import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
+import { BiSearchAlt } from 'react-icons/bi';
 import { Container, Form, Button, BtnLabel, Input } from './Searchbar.styled';
 
-const Searchbar = () => (
-  <Container>
-    <Form>
-      <Button type="submit">
-        <BtnLabel>Search</BtnLabel>
-      </Button>
+class Searchbar extends React.Component {
+  state = {
+    query: ''
+  }
 
-      <Input
-        type="text"
-        autocomplete="off"
-        autoFocus
-        placeholder="Search images and photos"
-      />
-    </Form>
-  </Container>
-);
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+  }
+
+  handleSubmit = e => {
+    const query = this.state.query.trim();
+    e.preventDefault();
+
+    if (!query) {
+      toast.error('please enter a request',{theme: "colored"});
+      return
+    }
+    this.props.onSubmit(query)
+  }
+
+  handleChange = e => this.setState({ query: e.target.value });
+
+  render() {
+    return (
+    <Container>
+        <Form onSubmit={this.handleSubmit}>
+        <Button type="submit">
+          <BtnLabel>Search</BtnLabel>
+          <BiSearchAlt/>
+        </Button>
+
+        <Input
+          type="text"
+          autocomplete="off"
+          autoFocus
+          placeholder="Search images and photos"
+          value = {this.state.query}
+          onChange={this.handleChange}
+        />
+      </Form>
+    </Container>
+    )
+   
+  }
+
+};
 
 export default Searchbar
