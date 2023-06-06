@@ -14,8 +14,8 @@ class Searchbar extends React.Component {
   }
 
   handleSubmit = e => {
-    const query = this.state.query.trim();
     e.preventDefault();
+    const query = this.state.query.trim();
 
     if (!query) {
       toast.error('please enter a request',{theme: "colored"});
@@ -30,25 +30,23 @@ class Searchbar extends React.Component {
     return (
     <Container>
         <Form onSubmit={this.handleSubmit}>
-        <Button type="submit">
-          <BtnLabel>Search</BtnLabel>
-          <BiSearchAlt/>
-        </Button>
+          <Button type="submit">
+            <BtnLabel>Search</BtnLabel>
+            <BiSearchAlt/>
+          </Button>
 
-        <Input
-          type="text"
-          autocomplete="off"
-          autoFocus
-          placeholder="Search images and photos"
-          value = {this.state.query}
-          onChange={this.handleChange}
-        />
+          <Input
+            type="text"
+            autocomplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+            value = {this.state.query}
+            onChange={this.handleChange}
+          />
       </Form>
     </Container>
     )
-   
   }
-
 };
 
 export default Searchbar
