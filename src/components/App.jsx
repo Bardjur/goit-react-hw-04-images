@@ -49,7 +49,7 @@ class App extends React.Component {
   }
 
   setQueryState = (query) => {
-    this.setState({ query, page: 1});
+    this.setState({ query, page: 1, error: null });
   }
 
   setPageState = () => {
