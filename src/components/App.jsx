@@ -54,6 +54,7 @@ const App = () => {
     if (queryHandle === query) {
       return
     }
+
     isQueryChanged.current = true
     setQuery(queryHandle);
     setPage(1);
