@@ -1,33 +1,27 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useState} from 'react';
 import { GalleryItem } from './ImageGalleryItem.styled';
 import Modal from 'components/Modal';
 
-class ImageGalleryItem extends React.Component {
-  state = {
-    isOpen:false
+const ImageGalleryItem = ({ imgUrlS, imgUrlL, tags }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick = () => {
+    setIsOpen(!isOpen)
   }
 
-  static propTypes = {
-    imgUrlS: PropTypes.string.isRequired,
-    imgUrlL: PropTypes.string.isRequired,
-    tags: PropTypes.string.isRequired,
-  }
+  return (
+    <GalleryItem onClick={handleClick}>
+      <img src={imgUrlS} alt={tags} />
+      {isOpen && <Modal onClick={handleClick} imgUrl={imgUrlL}/>}
+    </GalleryItem>
+  )
+}
 
-  handleClick = () => {
-    this.setState({isOpen: !this.state.isOpen})
-  }
-  
-  render() {
-    const { imgUrlS, imgUrlL, tags } = this.props
-
-    return (
-      <GalleryItem onClick={this.handleClick}>
-        <img src={imgUrlS} alt={tags} />
-        {this.state.isOpen && <Modal onClick={this.handleClick} imgUrl={imgUrlL}/>}
-      </GalleryItem>
-    )
-  }
+ImageGalleryItem.propTypes = {
+  imgUrlS: PropTypes.string.isRequired,
+  imgUrlL: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
 }
 
 export default ImageGalleryItem;
